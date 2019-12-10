@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SPI_DB_PROTOTIPOSModelStoreContainer" CdmEntityContainer="SPI_DB_PROTOTIPOSEntities">
+    <EntitySetMapping Name="EMAIL">
+      <EntityTypeMapping TypeName="SPI_DB_PROTOTIPOSModel.EMAIL">
+        <MappingFragment StoreEntitySet="EMAIL">
+          <ScalarProperty Name="emailId" ColumnName="emailId" />
+          <ScalarProperty Name="email1" ColumnName="email" />
+          <ScalarProperty Name="grupoEmailId" ColumnName="grupoEmailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GRUPO_EMAIL">
+      <EntityTypeMapping TypeName="SPI_DB_PROTOTIPOSModel.GRUPO_EMAIL">
+        <MappingFragment StoreEntitySet="GRUPO_EMAIL">
+          <ScalarProperty Name="grupoEmailId" ColumnName="grupoEmailId" />
+          <ScalarProperty Name="nome" ColumnName="nome" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROTOTIPO">
+      <EntityTypeMapping TypeName="SPI_DB_PROTOTIPOSModel.PROTOTIPO">
+        <MappingFragment StoreEntitySet="PROTOTIPO">
+          <ScalarProperty Name="prototipoId" ColumnName="prototipoId" />
+          <ScalarProperty Name="shopOrder" ColumnName="shopOrder" />
+          <ScalarProperty Name="tipo" ColumnName="tipo" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="alertLineSet" ColumnName="alertLineSet" />
+          <ScalarProperty Name="statusPrototipo" ColumnName="statusPrototipo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROTOTIPO_GRUPO_EMAIL">
+      <EntityTypeMapping TypeName="SPI_DB_PROTOTIPOSModel.PROTOTIPO_GRUPO_EMAIL">
+        <MappingFragment StoreEntitySet="PROTOTIPO_GRUPO_EMAIL">
+          <ScalarProperty Name="prototipoGrupoEmailId" ColumnName="prototipoGrupoEmailId" />
+          <ScalarProperty Name="prototipoId" ColumnName="prototipoId" />
+          <ScalarProperty Name="grupoEmailId" ColumnName="grupoEmailId" />
+          <ScalarProperty Name="estacaoTrabalhoCod" ColumnName="estacaoTrabalhoCod" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

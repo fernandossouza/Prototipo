@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SPI_DB_PROTOTIPOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="EMAIL">
+    <Key>
+      <PropertyRef Name="emailId" />
+    </Key>
+    <Property Name="emailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="email1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="grupoEmailId" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GRUPO_EMAIL">
+    <Key>
+      <PropertyRef Name="grupoEmailId" />
+    </Key>
+    <Property Name="grupoEmailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="EMAIL" Relationship="Self.FK_SPI_TB_EMAIL_SPI_TB_GRUPO_EMAIL" FromRole="GRUPO_EMAIL" ToRole="EMAIL" />
+  </EntityType>
+  <EntityType Name="PROTOTIPO">
+    <Key>
+      <PropertyRef Name="prototipoId" />
+    </Key>
+    <Property Name="prototipoId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="shopOrder" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="status" Type="Boolean" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="alertLineSet" Type="Int32" Nullable="false" />
+    <Property Name="statusPrototipo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="PROTOTIPO_GRUPO_EMAIL" Relationship="Self.FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_PROTOTIPO" FromRole="PROTOTIPO" ToRole="PROTOTIPO_GRUPO_EMAIL" />
+  </EntityType>
+  <EntityType Name="PROTOTIPO_GRUPO_EMAIL">
+    <Key>
+      <PropertyRef Name="prototipoGrupoEmailId" />
+    </Key>
+    <Property Name="prototipoGrupoEmailId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="prototipoId" Type="Int64" Nullable="false" />
+    <Property Name="grupoEmailId" Type="Int64" Nullable="false" />
+    <Property Name="estacaoTrabalhoCod" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="GRUPO_EMAIL" Relationship="Self.FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_GRUPO_EMAIL" FromRole="PROTOTIPO_GRUPO_EMAIL" ToRole="GRUPO_EMAIL" />
+    <NavigationProperty Name="PROTOTIPO" Relationship="Self.FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_PROTOTIPO" FromRole="PROTOTIPO_GRUPO_EMAIL" ToRole="PROTOTIPO" />
+  </EntityType>
+  <Association Name="FK_SPI_TB_EMAIL_SPI_TB_GRUPO_EMAIL">
+    <End Role="GRUPO_EMAIL" Type="Self.GRUPO_EMAIL" Multiplicity="1" />
+    <End Role="EMAIL" Type="Self.EMAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GRUPO_EMAIL">
+        <PropertyRef Name="grupoEmailId" />
+      </Principal>
+      <Dependent Role="EMAIL">
+        <PropertyRef Name="grupoEmailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_GRUPO_EMAIL">
+    <End Role="GRUPO_EMAIL" Type="Self.GRUPO_EMAIL" Multiplicity="1" />
+    <End Role="PROTOTIPO_GRUPO_EMAIL" Type="Self.PROTOTIPO_GRUPO_EMAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GRUPO_EMAIL">
+        <PropertyRef Name="grupoEmailId" />
+      </Principal>
+      <Dependent Role="PROTOTIPO_GRUPO_EMAIL">
+        <PropertyRef Name="grupoEmailId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_PROTOTIPO">
+    <End Role="PROTOTIPO" Type="Self.PROTOTIPO" Multiplicity="1" />
+    <End Role="PROTOTIPO_GRUPO_EMAIL" Type="Self.PROTOTIPO_GRUPO_EMAIL" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROTOTIPO">
+        <PropertyRef Name="prototipoId" />
+      </Principal>
+      <Dependent Role="PROTOTIPO_GRUPO_EMAIL">
+        <PropertyRef Name="prototipoId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SPI_DB_PROTOTIPOSEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="EMAIL" EntityType="Self.EMAIL" />
+    <EntitySet Name="GRUPO_EMAIL" EntityType="Self.GRUPO_EMAIL" />
+    <EntitySet Name="PROTOTIPO" EntityType="Self.PROTOTIPO" />
+    <EntitySet Name="PROTOTIPO_GRUPO_EMAIL" EntityType="Self.PROTOTIPO_GRUPO_EMAIL" />
+    <AssociationSet Name="FK_SPI_TB_EMAIL_SPI_TB_GRUPO_EMAIL" Association="Self.FK_SPI_TB_EMAIL_SPI_TB_GRUPO_EMAIL">
+      <End Role="GRUPO_EMAIL" EntitySet="GRUPO_EMAIL" />
+      <End Role="EMAIL" EntitySet="EMAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_GRUPO_EMAIL" Association="Self.FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_GRUPO_EMAIL">
+      <End Role="GRUPO_EMAIL" EntitySet="GRUPO_EMAIL" />
+      <End Role="PROTOTIPO_GRUPO_EMAIL" EntitySet="PROTOTIPO_GRUPO_EMAIL" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_PROTOTIPO" Association="Self.FK_SPI_TB_PROTOTIPO_GRUPO_EMAIL_SPI_TB_PROTOTIPO">
+      <End Role="PROTOTIPO" EntitySet="PROTOTIPO" />
+      <End Role="PROTOTIPO_GRUPO_EMAIL" EntitySet="PROTOTIPO_GRUPO_EMAIL" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
